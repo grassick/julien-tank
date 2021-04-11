@@ -61,7 +61,7 @@ scene("main", () => {
     sprite("tank-red"),
     pos(600, 600),
     scale(0.3),
-    rotate(0),
+    rotate(Math.PI),
     origin("center")
   ])
 
@@ -74,7 +74,7 @@ scene("main", () => {
   })
 
   keyDown("s", () => {
-    red.move(-100 * Math.cos(red.angle), +100 * Math.sin(red.angle))
+    red.move(100 * Math.cos(red.angle), -100 * Math.sin(red.angle))
   })
 
   keyDown("d", () => {
@@ -114,7 +114,7 @@ scene("main", () => {
       sprite("missile"),
       pos(red.pos),
       scale(0.1),
-      rotate(red.angle+Math.PI),
+      rotate(red.angle),
       origin("center"),
       color(1, 0.3, 0.3),
       "missile",
