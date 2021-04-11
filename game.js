@@ -9,13 +9,32 @@ loadSprite("tank-red", "tank-red.png");
 
 // define a scene
 scene("main", () => {
+
+  const wallL = add([
+    "wall",
+    rect(10, height()),
+    pos(0, 0),
+    color(0, 0, 1),
+    solid()
+  ]);
+  const wallr = add([
+    "wall",
+    rect(10, height()),
+    pos(width()-10, 0),
+    color(0, 0, 1),
+    solid()
+  ]);
   const blue = add([
     sprite("tank-blue"),
     pos(50, 50),
     scale(0.3),
     rotate(0),
-    origin("center")
+    origin("center"),
   ])
+
+  blue.action(() => {
+   blue.resolve()
+  })
 
   const red = add([
     sprite("tank-red"),
@@ -24,6 +43,10 @@ scene("main", () => {
     rotate(0),
     origin("center")
   ])
+
+  red.action(() => {
+    red.resolve()
+   })
 
   keyDown("a", () => {
     red.angle += dt()*3
