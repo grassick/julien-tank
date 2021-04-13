@@ -6,9 +6,17 @@ kaboom.global();
 // init kaboom context
 init({ fullscreen: true });
 
-loadSprite("tank-blue", "tank-blue.png");
-loadSprite("tank-red", "tank-red.png");
+loadSprite("tank-blue", "tank-blue.png")
+loadSprite("tank-red", "tank-red.png")
 loadSprite("missile", "missile.png")
+loadSprite("explosion", "exp2_0.png", {
+  sliceX: 4,
+  sliceY: 4,
+  anims: {
+    boom: [0, 15]
+  }
+})
+
 
 // define a scene
 scene("main", () => {
@@ -46,11 +54,13 @@ scene("main", () => {
   ]);
 
   const blue = add([
+    "tankblue",
     sprite("tank-blue"),
     pos(50, 50),
     scale(0.3),
     rotate(0),
     origin("center"),
+    solid()
   ])
 
   blue.action(() => {
@@ -58,11 +68,13 @@ scene("main", () => {
   })
 
   const red = add([
+    "tankred",
     sprite("tank-red"),
     pos(600, 600),
     scale(0.3),
     rotate(Math.PI),
-    origin("center")
+    origin("center"),
+    solid()
   ])
 
   red.action(() => {
@@ -94,15 +106,19 @@ scene("main", () => {
   })
 
   keyPress("8", () => {
-    add([
-      sprite("missile"),
-      pos(blue.pos),
-      scale(0.1),
-      rotate(blue.angle),
-      origin("center"),
-      color(0.3, 0.3, 1),
-      "missile",
-    ])
+    if (blue.exists()) {
+      add([
+        sprite("missile"),
+        pos(blue.pos),
+        scale(0.1),
+        rotate(blue.angle),
+        origin("center"),
+        color(0.3, 0.3, 1),
+        "missile",
+        "missileblue"
+      ])
+    }
+
   })
 
   action("missile", (obj) => {
@@ -110,16 +126,87 @@ scene("main", () => {
   });
 
   keyPress("w", () => {
-    add([
-      sprite("missile"),
-      pos(red.pos),
-      scale(0.1),
-      rotate(red.angle),
-      origin("center"),
-      color(1, 0.3, 0.3),
-      "missile",
-    ])
+    if (red.exists()) {
+      add([
+        sprite("missile"),
+        pos(red.pos),
+        scale(0.1),
+        rotate(red.angle),
+        origin("center"),
+        color(1, 0.3, 0.3),
+        "missile",
+        "missilered",
+      ])
+    }
   })
+
+  collides("missilered", "tankblue", (missile, tank) => {
+    // remove both the bullet and the thing bullet hit with tag "killable" from scene
+    destroy(missile)
+    destroy(tank)
+    const explosion = add([
+      sprite("explosion"),
+      pos(missile.pos),
+      origin("center")
+    ])
+    explosion.play("boom")
+
+    wait(1, () => {
+      destroy(explosion)
+    });
+
+  });
+
+  collides("missileblue", "tankred", (missile, tank) => {
+    // remove both the bullet and the thing bullet hit with tag "killable" from scene
+    destroy(missile);
+    destroy(tank);
+    const explosion = add([
+      sprite("explosion"),
+      pos(missile.pos),
+      origin("center")
+    ])
+    explosion.play("boom")
+
+    wait(1, () => {
+      destroy(explosion)
+    });
+  });
+
+  collides("missile", "wall", (missile, wall) => {
+    // remove both the bullet and the thing bullet hit with tag "killable" from scene
+    destroy(missile)
+    
+    const explosion = add([
+      sprite("explosion"),
+      pos(missile.pos),
+      origin("center")
+    ])
+    explosion.play("boom")
+
+    wait(1, () => {
+      destroy(explosion)
+    });
+
+  });
+
+  collides("missile", "missile", (missile1, missile2) => {
+    // remove both the bullet and the thing bullet hit with tag "killable" from scene
+    destroy(missile1)
+    destroy(missile2)
+    const explosion = add([
+      sprite("explosion"),
+      pos(missile1.pos),
+      origin("center")
+    ])
+    explosion.play("boom")
+
+    wait(1, () => {
+      destroy(explosion)
+    });
+
+  });
+
 });
 
 
