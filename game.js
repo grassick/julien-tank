@@ -89,6 +89,10 @@ scene("main", () => {
     red.move(100 * Math.cos(red.angle), -100 * Math.sin(red.angle))
   })
 
+  keyDown("x", () => {
+    red.move(-100 * Math.cos(red.angle), +100 * Math.sin(red.angle))
+  })
+
   keyDown("d", () => {
     red.angle -= dt() * 3
   })
@@ -103,6 +107,10 @@ scene("main", () => {
 
   keyDown("5", () => {
     blue.move(100 * Math.cos(blue.angle), -100 * Math.sin(blue.angle))
+  })
+
+  keyDown("2", () => {
+    blue.move(-100 * Math.cos(blue.angle), +100 * Math.sin(blue.angle))
   })
 
   keyPress("8", () => {
@@ -176,7 +184,7 @@ scene("main", () => {
   collides("missile", "wall", (missile, wall) => {
     // remove both the bullet and the thing bullet hit with tag "killable" from scene
     destroy(missile)
-    
+
     const explosion = add([
       sprite("explosion"),
       pos(missile.pos),
