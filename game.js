@@ -21,7 +21,7 @@ loadSprite("explosion", "exp2_0.png", {
 // define a scene
 scene("main", () => {
 
-  const walll = add([
+  add([
     "wall",
     rect(10, height()),
     pos(0, 0),
@@ -29,7 +29,31 @@ scene("main", () => {
     solid()
   ]);
 
-  const wallr = add([
+  add([
+    "wall",
+    rect(100,30),
+    pos(rand(50,400),rand(100,500)),
+    color(1, 1, 1),
+    solid()
+  ]);
+
+  add([
+    "wall",
+    rect(100,30),
+    pos(rand(50,400),rand(100,500)),
+    color(1, 1, 1),
+    solid()
+  ]);
+  
+add([
+    "wall",
+    rect(100,30),
+    pos(rand(50,400),rand(100,500)),
+    color(1, 1, 1),
+    solid()
+  ]);
+
+  add([
     "wall",
     rect(10, height()),
     pos(width() - 10, 0),
@@ -37,7 +61,7 @@ scene("main", () => {
     solid()
   ]);
 
-  const wallu = add([
+  add([
     "wall",
     rect(width() - 20, 10),
     pos(10, 0),
@@ -45,7 +69,7 @@ scene("main", () => {
     solid()
   ]);
 
-  const walld = add([
+  add([
     "wall",
     rect(width() - 20, 10),
     pos(10, height() - 10),
@@ -126,7 +150,6 @@ scene("main", () => {
         "missileblue"
       ])
     }
-
   })
 
   action("missile", (obj) => {
@@ -199,6 +222,8 @@ scene("main", () => {
   });
 
   collides("missile", "missile", (missile1, missile2) => {
+    return
+    
     // remove both the bullet and the thing bullet hit with tag "killable" from scene
     destroy(missile1)
     destroy(missile2)
