@@ -16,11 +16,11 @@ loadSprite("explosion", "exp2_0.png", {
     boom: [0, 15]
   }
 })
-
+loadSound("explosion", "explosion.wav")
+loadSound("launch", "launch.mp3")
 
 // define a scene
 scene("main", () => {
-
   add([
     "wall",
     rect(10, height()),
@@ -32,7 +32,7 @@ scene("main", () => {
   add([
     "wall",
     rect(100,30),
-    pos(rand(50,400),rand(100,500)),
+    pos(rand(100,width()-120 ),rand(100,height()-120)),
     color(1, 1, 1),
     solid()
   ]);
@@ -40,15 +40,15 @@ scene("main", () => {
   add([
     "wall",
     rect(100,30),
-    pos(rand(50,400),rand(100,500)),
+    pos(rand(100,width()-120 ),rand(100,height()-120)),
     color(1, 1, 1),
     solid()
   ]);
   
-add([
+  add([
     "wall",
     rect(100,30),
-    pos(rand(50,400),rand(100,500)),
+    pos(rand(100,width()-120 ),rand(100,height()-120)),
     color(1, 1, 1),
     solid()
   ]);
@@ -94,7 +94,7 @@ add([
   const red = add([
     "tankred",
     sprite("tank-red"),
-    pos(600, 600),
+    pos(width()-50,height()-50),
     scale(0.3),
     rotate(Math.PI),
     origin("center"),
@@ -149,6 +149,7 @@ add([
         "missile",
         "missileblue"
       ])
+      play("launch", { volume: 0.1 })
     }
   })
 
@@ -168,13 +169,16 @@ add([
         "missile",
         "missilered",
       ])
+      play("launch", { volume: 0.1 })
     }
   })
 
   collides("missilered", "tankblue", (missile, tank) => {
-    // remove both the bullet and the thing bullet hit with tag "killable" from scene
     destroy(missile)
     destroy(tank)
+
+    play("explosion")
+
     const explosion = add([
       sprite("explosion"),
       pos(missile.pos),
@@ -184,14 +188,28 @@ add([
 
     wait(1, () => {
       destroy(explosion)
+    });
+
+    const explosion2 = add([
+      sprite("explosion"),
+      pos(tank.pos),
+      origin("center"),
+      scale(5)
+    ])
+    explosion2.play("boom")
+
+    wait(1, () => {
+      destroy(explosion2)
     });
 
   });
 
   collides("missileblue", "tankred", (missile, tank) => {
-    // remove both the bullet and the thing bullet hit with tag "killable" from scene
-    destroy(missile);
-    destroy(tank);
+    destroy(missile)
+    destroy(tank)
+
+    play("explosion")
+
     const explosion = add([
       sprite("explosion"),
       pos(missile.pos),
@@ -202,11 +220,25 @@ add([
     wait(1, () => {
       destroy(explosion)
     });
+
+    const explosion2 = add([
+      sprite("explosion"),
+      pos(tank.pos),
+      origin("center"),
+      scale(5)
+    ])
+    explosion2.play("boom")
+
+    wait(1, () => {
+      destroy(explosion2)
+    });
   });
 
   collides("missile", "wall", (missile, wall) => {
-    // remove both the bullet and the thing bullet hit with tag "killable" from scene
     destroy(missile)
+    play("explosion", { 
+      volume: 0.1
+    })
 
     const explosion = add([
       sprite("explosion"),
