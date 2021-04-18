@@ -27,7 +27,7 @@ scene("main", () => {
     pos(0, 0),
     color(0, 0, 1),
     solid()
-  ]);
+  ])
 
   add([
     "wall",
@@ -200,6 +200,7 @@ scene("main", () => {
 
     wait(1, () => {
       destroy(explosion2)
+      go("start")
     });
 
   });
@@ -231,6 +232,7 @@ scene("main", () => {
 
     wait(1, () => {
       destroy(explosion2)
+      go("start")
     });
   });
 
@@ -272,8 +274,21 @@ scene("main", () => {
 
   });
 
-});
+})
+
+scene("start", () => {
+  add([
+    pos(width()/2,100),
+    origin("center"),
+    color(0, 0, 1),
+    text("Julien's game!", 40),
+  ])
+  keyPress("enter", () => {
+    go("main")
+  })
 
 
+
+})
 // start the game
-start("main");
+start("start");
