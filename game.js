@@ -1,10 +1,5 @@
-// import kaboom from './kaboom'
-
-// make kaboom functions global
-kaboom.global();
-
 // init kaboom context
-init({ fullscreen: true });
+kaboom({ fullscreen: true, global: true });
 
 loadSprite("tank-blue", "tank-blue.png")
 loadSprite("tank-red", "tank-red.png")
@@ -281,7 +276,7 @@ scene("start", () => {
     pos(width()/2,100),
     origin("center"),
     color(0, 0, 1),
-    text("Julien's game!", 40),
+    text(`Julien's game!`, 40),
   ])
   keyPress("enter", () => {
     go("main")
