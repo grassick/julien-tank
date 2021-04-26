@@ -148,6 +148,30 @@ scene("main", () => {
     }
   })
 
+  keyDown("9", () => {
+    every("missileblue", (missile) => {
+      missile.angle -= dt() * 1
+    })
+  })
+
+  keyDown("7", () => {
+    every("missileblue", (missile) => {
+      missile.angle += dt() * 1
+    })
+  })
+
+  keyDown("e", () => {
+    every("missilered", (missile) => {
+      missile.angle -= dt() * 1
+    })
+  })
+
+  keyDown("q", () => {
+    every("missilered", (missile) => {
+      missile.angle += dt() * 1
+    })
+  })
+
   action("missile", (obj) => {
     obj.move(200 * Math.cos(obj.angle), -200 * Math.sin(obj.angle));
   });
@@ -251,8 +275,6 @@ scene("main", () => {
   });
 
   collides("missile", "missile", (missile1, missile2) => {
-    return
-    
     // remove both the bullet and the thing bullet hit with tag "killable" from scene
     destroy(missile1)
     destroy(missile2)
@@ -266,7 +288,6 @@ scene("main", () => {
     wait(1, () => {
       destroy(explosion)
     });
-
   });
 
 })
