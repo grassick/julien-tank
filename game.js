@@ -24,29 +24,15 @@ scene("main", () => {
     solid()
   ])
 
-  add([
-    "wall",
-    rect(100,30),
-    pos(rand(100,width()-120 ),rand(100,height()-120)),
-    color(1, 1, 1),
-    solid()
-  ]);
-
-  add([
-    "wall",
-    rect(100,30),
-    pos(rand(100,width()-120 ),rand(100,height()-120)),
-    color(1, 1, 1),
-    solid()
-  ]);
-  
-  add([
-    "wall",
-    rect(100,30),
-    pos(rand(100,width()-120 ),rand(100,height()-120)),
-    color(1, 1, 1),
-    solid()
-  ]);
+  for (let i = 0 ; i < 30 ; i++) {
+    add([
+      "wall",
+      rect(100,30),
+      pos(rand(100,width()-120 ),rand(100,height()-120)),
+      color(rand(0, 1), rand(0, 1), rand(0, 1)),
+      solid()
+    ]);
+  }
 
   add([
     "wall",
@@ -114,6 +100,16 @@ scene("main", () => {
 
   keyDown("d", () => {
     red.angle -= dt() * 3
+  })
+
+  keyPress("z", () => {
+    red.pos.x = rand(50, width()-50)
+    red.pos.y = rand(50, height()-50)
+  })
+
+  keyPress("1", () => {
+    blue.pos.x = rand(50, width()-50)
+    blue.pos.y = rand(50, height()-50)
   })
 
   keyDown("4", () => {
