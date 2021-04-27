@@ -24,29 +24,15 @@ scene("main", () => {
     solid()
   ])
 
-  add([
-    "wall",
-    rect(100,30),
-    pos(rand(100,width()-120 ),rand(100,height()-120)),
-    color(1, 1, 1),
-    solid()
-  ]);
-
-  add([
-    "wall",
-    rect(100,30),
-    pos(rand(100,width()-120 ),rand(100,height()-120)),
-    color(1, 1, 1),
-    solid()
-  ]);
-  
-  add([
-    "wall",
-    rect(100,30),
-    pos(rand(100,width()-120 ),rand(100,height()-120)),
-    color(1, 1, 1),
-    solid()
-  ]);
+  for (let i = 0 ; i < 10 ; i++) {
+    add([
+      "wall",
+      rect(100,30),
+      pos(rand(100,width()-120),rand(100,height()-120)),
+      color(rand(0, 1), rand(0, 1), rand(0, 1)),
+      solid()
+    ]);
+  }
 
   add([
     "wall",
@@ -140,7 +126,7 @@ scene("main", () => {
         scale(0.1),
         rotate(blue.angle),
         origin("center"),
-        color(0.3, 0.3, 1),
+        color(0.5, 0.5, 1),
         "missile",
         "missileblue"
       ])
