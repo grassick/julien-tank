@@ -75,9 +75,9 @@ scene("main", () => {
   const blue = add([
     "tankblue",
     sprite("tank-blue"),
-    pos(50, 50),
+    pos(width()-50, height()-50),
     scale(0.3),
-    rotate(0),
+    rotate(Math.PI),
     origin("center"),
     solid()
   ])
@@ -89,10 +89,10 @@ scene("main", () => {
   const red = add([
     "tankred",
     sprite("tank-red"),
-    pos(width()-50,height()-50),
+    pos(50, 50),
     scale(0.3),
-    rotate(Math.PI),
     origin("center"),
+    rotate(0),
     solid()
   ])
 
@@ -273,11 +273,25 @@ scene("main", () => {
 
 scene("start", () => {
   add([
-    pos(width()/2,100),
+    pos(width()/2, 100),
     origin("center"),
     color(0, 0, 1),
     text(`Julien's game!`, 40),
   ])
+
+  add([
+    pos(width()/2, 300),
+    origin("center"),
+    color(0, 0, 1),
+    text(`Enter to start
+
+Red tank: a = left, d = right, s = forward, x = backward, w = shoot
+
+Blue tank: 4 = left, 6 = right, 5 = forward, 2 = backward, 8 = shoot
+`, 20),
+  ])
+
+
   keyPress("enter", () => {
     go("main")
   })
